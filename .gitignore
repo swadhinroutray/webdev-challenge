@@ -1,0 +1,4 @@
+.env
+
+#api nodemodules
+api/node_modules

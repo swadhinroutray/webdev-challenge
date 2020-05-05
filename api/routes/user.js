@@ -309,6 +309,53 @@ exp.getLiked = async (req,res)=>{
         return res.send('An Error Occured'+ e)
     }
 }
+
+exp.getSaved = async (req,res) =>{
+    try{
+        if(req.session.logged_in != undefined && req.session.logged_in == true){
+            result = await user.findOne({"email": req.session.email}, 
+            )
+            console.log(result)
+            if(!result) return res.send("An error Occured")
+            var arr = [result.saved]
+            if(arr.length==0)
+            return res.send("Empty array!")
+            return res.send(arr)
+        }
+        else{
+            return res.redirect('/login')
+        }  
+        
+    }
+    catch(e){
+        console.log(e);
+        return res.send('An Error Occured'+ e)
+    }
+}
+exp.getFollowing = async (req,res) =>{
+    try{
+        if(req.session.logged_in != undefined && req.session.logged_in == true){
+            result = await user.findOne({"email": req.session.email}, 
+            )
+            console.log(result)
+            if(!result) return res.send("An error Occured")
+            var arr = [result.following]
+            if(arr.length==0)
+            return res.send("Empty array!")
+            return res.send(arr)
+        }
+        else{
+            return res.redirect('/login')
+        }  
+        
+    }
+    catch(e){
+        console.log(e);
+        return res.send('An Error Occured'+ e)
+    }
+}
+
+
 module.exports =exp;
 
 

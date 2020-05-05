@@ -26,6 +26,8 @@ router.get('/getprofile',isLoggedIn,user.getProfile)
 router.get('/getdesigns',isLoggedIn,user.getDesigns)
 router.get('/getfeed',isLoggedIn,user.getFeed)
 router.get('/getliked',isLoggedIn,user.getLiked)
+router.get('/getsaved',isLoggedIn,user.getSaved)
+router.get('/getfollowing',isLoggedIn,user.getFollowing)
 
 
 

@@ -55,13 +55,13 @@ exp.login = async(req,res)=>{
                     req.session.name = result.name;
                     req.session.logged_in = true;
                     // console.log(req.session)
-                    return res.send('Logged in');
+                    return res.redirect('/getprofile');
                 }
             }
         }
         else{
             console.log(req.session)
-            return res.redirect('/profile');
+            return res.redirect('/getprofile');
         }
     }
     catch(e){
@@ -72,7 +72,10 @@ exp.login = async(req,res)=>{
 
 
 exp.logout = async (req, res) => {
-    await req.session.destroy();
+    console.log(req.session)
+    
+    req.session.destroy();
+    console.log(req.session)
     return res.send('Logged Out Successfully');
   };
   

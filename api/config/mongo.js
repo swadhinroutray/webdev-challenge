@@ -3,7 +3,7 @@ let exp ={};
 
   exp.connectMongo = ()=>{
   var mongouri = `mongodb://localhost:27017/webchallenge`;
-  
+  //var mongouri = `mongodb://db:27017/webchallenge`
   mongoose.connect(
     mongouri,
     {

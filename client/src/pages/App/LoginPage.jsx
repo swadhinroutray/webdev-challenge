@@ -42,10 +42,8 @@ function SubmitForm(state){
         })
     }).then(resp => resp.json())
     .then((data) => {
-        alert(data)
-        return(
-            <Redirect to = '/profile'/>
-        )
+        
+        this.props.history.push('/home')
     })
 }
 

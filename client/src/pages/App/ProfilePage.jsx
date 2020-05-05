@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import {get,post} from '../../api/utils'
 import styled from 'styled-components'
 import Designs from '../../components/Designs'
+import { SolarSystemLoading } from 'react-loadingg';
+
 import {
-    Redirect, Link,withRouter
+    Redirect, Link,withRouter, useHistory
   } from "react-router-dom";
-  const CustomButtons = styled.img`
+const CustomButtons = styled.img`
     margin-top: 2px;
     height:3vh;
     cursor:pointer;
@@ -34,7 +36,7 @@ class ProfilePage extends Component {
         }
         // this.addBio =this.addBio.bind(this);
          this.logout =this.logout.bind(this);
-        
+         this.addbio =this.addbio.bind(this);
     }
     async componentDidMount(){
         this.setState({
@@ -63,11 +65,16 @@ class ProfilePage extends Component {
         })
     }
     
+    addbio(){
+        // this.props.history.push('/addbio')
+        const history =useHistory()
+        history.push('/addbio')
+    }
     render() {
         if(this.state.loading)
         return(
             <div>
-                Loading...
+             <SolarSystemLoading />
             </div>
         )
 
@@ -81,7 +88,7 @@ class ProfilePage extends Component {
             <br/>
             <p> 
               {( this.state.bio === '' )? 
-              <button onclick= {<Redirect from ='/profile' to='/addbio/' />} > Add Bio</button> : <h3>{this.state.bio} </h3> }
+                <Link to= {'/addbio'}> Add Bio</Link>  : <h3>{this.state.bio} </h3> }
             </p>
 
             <h3>Your Designs:</h3>

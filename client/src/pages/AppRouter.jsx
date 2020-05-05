@@ -29,7 +29,7 @@ class AppRouter extends Component {
                     {/* <Route path = {'/feed'} component ={FeedPage}/>
                     <Route path = {'/saved'} component ={SavedDesigns}/>
                      */}
-                    <Route exact path ={'/'} component= {RegisterPage}/>
+                    <Route exact path ={'/'} component= {LoginPage}/>
                 </Router>
             </div>
         )

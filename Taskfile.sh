@@ -22,7 +22,6 @@ rediscli() {
 
 startnode() {
     cd api && npm run-script dev 
-    cd client && npm start
-        
+    
 }
 "${@:-default}"

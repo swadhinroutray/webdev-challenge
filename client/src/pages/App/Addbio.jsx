@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import {get,post} from '../../api/utils'
 import {
-    Link
+    Link,withRouter
   } from "react-router-dom";
 const Profile = styled.div`
     display:list-item;
@@ -34,6 +34,7 @@ class Addbio extends Component {
         console.log(res)
         
         alert('Bio added Successfully')
+        this.props.history.push('/profile')
         return 
     }
     render() {
@@ -58,4 +59,4 @@ class Addbio extends Component {
     }
 }
 
-export default Addbio
+export default withRouter(Addbio)

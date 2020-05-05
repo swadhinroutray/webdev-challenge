@@ -90,7 +90,6 @@ class LoginPage extends Component{
                 Register
 			</Link>
             </LinkBox>
-            {this.state.email} {this.state.password}
         </FormPage>
     )
                 }

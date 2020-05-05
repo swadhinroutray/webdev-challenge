@@ -24,7 +24,11 @@ export class Designs extends Component {
             isFetching:false
         })
     }
-
+    componentWillUnmount(){
+        this.setState({
+            designs: [],
+        })
+ }
     
     renderItems =() =>{
         

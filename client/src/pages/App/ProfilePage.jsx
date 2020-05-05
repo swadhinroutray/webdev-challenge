@@ -5,7 +5,7 @@ import Designs from '../../components/Designs'
 import { SolarSystemLoading } from 'react-loadingg';
 
 import {
-    Redirect, Link,withRouter, useHistory
+    Redirect, Link,withRouter
   } from "react-router-dom";
 const CustomButtons = styled.img`
     margin-top: 2px;
@@ -21,6 +21,11 @@ const Profile = styled.div`
     margin-right:auto;
     color:#1abc9c
 `;
+const Logout = styled.div`
+    position:fixed;
+   right:10px;
+   top:18px;
+`
 
 class ProfilePage extends Component {
     constructor(props){
@@ -36,7 +41,9 @@ class ProfilePage extends Component {
         }
         // this.addBio =this.addBio.bind(this);
          this.logout =this.logout.bind(this);
-         this.addbio =this.addbio.bind(this);
+        //  this.addbio =this.addbio.bind(this);
+    
+        
     }
     async componentDidMount(){
         this.setState({
@@ -60,16 +67,11 @@ class ProfilePage extends Component {
     async logout(){
         await fetch ('/logout').then(resp => resp.json())
         .then((data) => {
-            
-            this.props.history.push('/login')
+
         })
     }
     
-    addbio(){
-        // this.props.history.push('/addbio')
-        const history =useHistory()
-        history.push('/addbio')
-    }
+
     render() {
         if(this.state.loading)
         return(
@@ -81,6 +83,9 @@ class ProfilePage extends Component {
         return (
             
             <Profile>
+             <Logout>
+            <Link to ='/login'  onClick ={this.logout} >Logout</Link>
+            </Logout>
             <h1>Profile</h1>
             <h3>Welcome {this.state.name} !</h3>
           
@@ -101,9 +106,7 @@ class ProfilePage extends Component {
             <Link to='/feed'>
                 Check Feed
             </Link>
-            <div>
-            <CustomButtons src = {require('../../assets/logout.svg')} alt='like' onClick ={this.logout} />
-            </div>
+           
             
             </Profile>
         )

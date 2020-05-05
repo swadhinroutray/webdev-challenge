@@ -61,7 +61,7 @@ export class ArticleCard extends Component {
 
                 <Box>
                 <Header1>{this.props.title}</Header1>
-                <Header2> {this.props.author}</Header2>
+                <Header2>{this.props.author}</Header2>
                 <Header6>{this.props.email}</Header6>
                 {/* <ReadArticle>Read</ReadArticle> */}
                 {/* <p>{this.props.content}</p> */}

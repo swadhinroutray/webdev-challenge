@@ -22,7 +22,7 @@ s3 = new AWS.S3({apiVersion:"2006-03-01"})
 db.connectMongo();
 const sec_sess = session({
 	resave: false,
-	saveUninitialized: false,
+	saveUninitialized: true,
 	secret: process.env.SESSION_SECRET_KEY,
 	store: redisStore,
 	cookie: { maxAge: 6048000000 }

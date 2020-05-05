@@ -58,18 +58,19 @@ export class FeedCard extends Component {
     this.follow = this.follow.bind(this);
     }
 
-    likePost =async(title)=> {
-        const data = await post('/like/'+title)
+    likePost =async()=> {
+        const data = await post('/like/'+this.props.title)
+        console.log(data)
         return alert('liked design' +data);
     }
     
-    savePost =async(title)=> {
-        const data = await post('/save/'+title)
+    savePost =async()=> {
+        const data = await post('/save/'+this.props.title)
         return alert('saved design' +data);
     }
-    follow =async(author)=>{
-        const data = await post('/follow/'+author)
-        return alert('saved design' +data);
+    follow =async()=>{
+        const data = await post('/follow/'+this.props.author)
+        return alert(data.data);
     }
     
     render() {
@@ -78,13 +79,13 @@ export class FeedCard extends Component {
             <div className = 'Article Cards'>
                 <Box>
                 <Header1>{this.props.title}</Header1>
-                <Header2> {this.props.author}</Header2>
-                <Header2>{this.props.email}</Header2>
+                <Header2>Author: {this.props.author}</Header2>
+                <Header2>Email: {this.props.email}</Header2>
                
                 <Icons>
-                    <CustomButtons src = {require('../assets/like-svgrepo-com.svg')} alt='like' onClick ={this.likePost(this.props.title)} />
-                    <CustomButtons src ={require('../assets/floppy-disk-save-button-svgrepo-com.svg')} alt='save' onClick ={this.savePost(this.props.title)} />
-                    <CustomButtons src ={require('../assets/follow.svg')} alt='follow' onClick ={this.follow(this.props.author)} />
+                    <CustomButtons src = {require('../assets/like-svgrepo-com.svg')} alt='like' onClick ={this.likePost} />
+                    <CustomButtons src ={require('../assets/floppy-disk-save-button-svgrepo-com.svg')} alt='save' onClick ={this.savePost} />
+                    <CustomButtons src ={require('../assets/follow.svg')} alt='follow' onClick ={this.follow} />
                 
                 </Icons>
                 </Box>

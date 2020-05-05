@@ -17,7 +17,7 @@ const user  = new mongoose.Schema({
     bio:{
         type: String,
     }, 
-    following :{
+    following:{
         type: Array,
     },
     designs:{

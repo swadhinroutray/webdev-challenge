@@ -99,6 +99,15 @@ exp.addbio = async (req,res)=>{
 exp.likeDesign = async(req,res)=>{
     try{
         if(req.session.logged_in != undefined && req.session.logged_in == true){
+            result0 = await user.findOne(
+                {"email":(req.session.email).trim()},
+                {likes:{ $elemMatch:{$eq : req.params.title}}} 
+            )
+            console.log(result0)
+            if(result0.likes){
+                return res.send("Already liked")
+
+            }
             result = await user.findOneAndUpdate(
                 {"email":(req.session.email).trim()},
                 {$push:{ likes: (req.params.title).trim() }} 
@@ -147,6 +156,15 @@ exp.addComment = async(req,res)=>{
 exp.saveDesign = async(req,res)=>{
     try{
         if(req.session.logged_in != undefined && req.session.logged_in == true){
+        
+            result0 = await user.findOne(
+                {"email":(req.session.email).trim()},
+                {saved:{ $elemMatch:{$eq:req.params.title}}} 
+            )
+            console.log(result0.saved.length)
+            if(result0.saved.length != 0){
+                return res.send("Already saved")
+            }
             result = await user.findOneAndUpdate(
                 {"email":(req.session.email).trim()},
                 {$push:{ saved: (req.params.title).trim() }} 
@@ -174,10 +192,21 @@ exp.saveDesign = async(req,res)=>{
 exp.follow = async(req,res) =>{
     try{
         if(req.session.logged_in != undefined && req.session.logged_in == true){
+            console.log(req.params.authorname)
+            result0 = await user.findOne(
+                {"email":(req.session.email).trim()},
+                {following:{ $elemMatch:{$eq : req.params.authorname}}} 
+            )
+            console.log(result0.following)
+            if(result0.following){
+                return res.send("Already Following")
+
+            }
             result = await user.findOneAndUpdate(
                 {"email":(req.session.email).trim()},
                 {$push:{ following:(req.params.authorname).trim() }} 
             )
+
             if(!result) return res.send("An error Occured")
             return res.send("Now Following "+ req.params.authorname)
         }

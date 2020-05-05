@@ -10,10 +10,8 @@ start() {
 }
 
 dbshell() {
-    source ./.env && docker exec -it webchallenge_db_1 \
-    mongo  -u $DB_USER \
-    -p $DB_PASSWORD \
-    --authenticationDatabase $DB_NAME
+     docker exec -it webchallenge_db_1 \
+     mongo --authenticationDatabase webchallenge
 }
 
 rediscli() {

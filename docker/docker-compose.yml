@@ -34,7 +34,6 @@ services:
    
   db:
     image: mongo:latest
-    image: mongo
     volumes:
       - ./data:/data/db
     ports:
@@ -52,3 +51,4 @@ networks:
   network:
     driver: bridge
 
+# "concurrently --kill-others-on-fail \"npm run-script server\" \"npm run-script client\""

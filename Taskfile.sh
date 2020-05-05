@@ -1,6 +1,6 @@
 #!/bin/bash
 default(){
-    start
+    startnode
 }
 
 start() {
@@ -20,4 +20,9 @@ rediscli() {
     docker exec -it webchallenge_redis_1 redis-cli
 }
 
+startnode() {
+    cd api && npm run-script dev 
+    cd client && npm start
+        
+}
 "${@:-default}"

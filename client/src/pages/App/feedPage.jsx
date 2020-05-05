@@ -4,6 +4,9 @@ import FeedCard  from '../../components/FeedCard'
 import { SolarSystemLoading } from 'react-loadingg';
 import {get} from '../../api/utils'
 import { Grid } from 'semantic-ui-react'
+import {
+    Redirect, Link
+  } from "react-router-dom";
 export class feedPage extends Component {
     constructor(props){
         super(props)
@@ -57,7 +60,11 @@ export class feedPage extends Component {
                         {this.renderItems()}
                     </Grid.Row>
                 
+                    <Link to='/profile'>
+                    Back to Profile
+                    </Link>
                 </div>
+
                 )
         }
     

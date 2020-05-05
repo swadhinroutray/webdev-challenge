@@ -71,7 +71,7 @@ exp.login = async(req,res)=>{
 }
 
 
-exp.logout = async (req, res) => {
+exp.logout = (req, res) => {
     console.log(req.session)
     
     req.session.destroy();

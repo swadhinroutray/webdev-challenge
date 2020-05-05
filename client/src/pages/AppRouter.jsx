@@ -12,6 +12,8 @@ import ProfilePage from '../pages/App/ProfilePage'
 import Addbio from '../pages/App/Addbio'
 import UploadDesign from '../pages/App/UploadDesign'
 import feedPage from '../pages/App/feedPage'
+import LikedPage from '../pages/App/LikedPage'
+
 class AppRouter extends Component {
     render() {
         return (
@@ -23,6 +25,7 @@ class AppRouter extends Component {
                     <Route path ={'/addbio'} component ={Addbio}/>
                     <Route path ={'/uploaddesign'} component ={UploadDesign} />
                     <Route path = {'/feed'} component={feedPage}/>
+                    <Route path = {'/likes'} component={LikedPage}/>
                     {/* <Route path = {'/feed'} component ={FeedPage}/>
                     <Route path = {'/saved'} component ={SavedDesigns}/>
                      */}

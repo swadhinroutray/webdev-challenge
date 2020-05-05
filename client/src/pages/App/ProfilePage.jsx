@@ -3,8 +3,13 @@ import {get,post} from '../../api/utils'
 import styled from 'styled-components'
 import Designs from '../../components/Designs'
 import {
-    Redirect, Link
+    Redirect, Link,withRouter
   } from "react-router-dom";
+  const CustomButtons = styled.img`
+    margin-top: 2px;
+    height:3vh;
+    cursor:pointer;
+`
 const Profile = styled.div`
     display:list-item;
     list-style-type:none;
@@ -28,7 +33,7 @@ class ProfilePage extends Component {
             designs:[],
         }
         // this.addBio =this.addBio.bind(this);
-        // this.showForm =this.showForm.bind(this);
+         this.logout =this.logout.bind(this);
         
     }
     async componentDidMount(){
@@ -37,6 +42,9 @@ class ProfilePage extends Component {
         })
         var response1 = await get('/getprofile')
         console.log(response1)
+        if(response1.status ==400){
+            this.props.history.push('/login')
+        }
         this.setState({
             name:response1.name,
             email:response1.email,
@@ -47,7 +55,14 @@ class ProfilePage extends Component {
         })
     }
 
-
+    async logout(){
+        await fetch ('/logout').then(resp => resp.json())
+        .then((data) => {
+            
+            this.props.history.push('/login')
+        })
+    }
+    
     render() {
         if(this.state.loading)
         return(
@@ -57,6 +72,7 @@ class ProfilePage extends Component {
         )
 
         return (
+            
             <Profile>
             <h1>Profile</h1>
             <h3>Welcome {this.state.name} !</h3>
@@ -74,9 +90,17 @@ class ProfilePage extends Component {
             <Link to='/uploaddesign'>
                 Upload a Design!
             </Link>
+            <br />
+            <Link to='/feed'>
+                Check Feed
+            </Link>
+            <div>
+            <CustomButtons src = {require('../../assets/logout.svg')} alt='like' onClick ={this.logout} />
+            </div>
+            
             </Profile>
         )
     }
 }
 
-export default ProfilePage
+export default withRouter(ProfilePage)

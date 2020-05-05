@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import { Link,Redirect } from 'react-router-dom';
+import React, {Component} from 'react'
+import { Link,Redirect ,withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 
 const FormPage = styled.div`
@@ -30,26 +30,37 @@ const InputFields = styled.div`
     margin-top:2vh;
     color:#1abc9c;
 `;
-function SubmitForm(state){
-    fetch('/login', {
-        method: 'post',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            email:state.email,
-            password:state.password
-        })
-    }).then(resp => resp.json())
-    .then((data) => {
-        
-        this.props.history.push('/home')
-    })
-}
+ 
 
-const LoginPage = () => {
-    const [email, setEmail] = useState('');
-    const [password,setPassword] =useState('');
+class LoginPage extends Component{
+    constructor(props){
+        super(props)
+        this.state ={
+            email:'',
+            password:''
+        }
+        this.SubmitForm = this.SubmitForm.bind(this)
+    }
+    SubmitForm (){
+        fetch ('/login', {
+            method: 'post',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email:this.state.email,
+                password:this.state.password
+            })
+        }).then(resp => resp.json())
+        .then((data) => {
+            
+            this.props.history.push('/profile')
+        })
+    }
+    
+    // const [email, setEmail] = useState('');
+    // const [password,setPassword] =useState('');
+    render(){
     return (
         <FormPage>
             <Heading>
@@ -60,18 +71,17 @@ const LoginPage = () => {
             <InputFields>
                 Email:
                 <br />
-                <input type = 'text' placeholder='Input Email' onChange= {(e)=> setEmail(e.target.value)} />
+                <input type = 'text' placeholder='Input Email' onChange= {(e)=> this.setState({ email: (e.target.value)})} />
             </InputFields>
 
             <InputFields>
                 Password:
                 <br />
-                <input type ='password' placeholder='Input Password' onChange= {(e)=> setPassword(e.target.value)} />
+                <input type ='password' placeholder='Input Password' onChange= {(e)=> this.setState({ password: (e.target.value)})} />
              </InputFields>
 
-            <button onClick={() => {
-                SubmitForm({email:email, password:password});
-                 }}
+            <button onClick={ 
+                this.SubmitForm}
             >
            Login
             </button>
@@ -80,8 +90,10 @@ const LoginPage = () => {
                 Register
 			</Link>
             </LinkBox>
+            {this.state.email} {this.state.password}
         </FormPage>
     )
+                }
 }
 
-export default LoginPage;
+export default withRouter(LoginPage);

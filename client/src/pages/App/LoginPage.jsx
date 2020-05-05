@@ -31,42 +31,33 @@ const InputFields = styled.div`
     color:#1abc9c;
 `;
 function SubmitForm(state){
-    if(state.password!==state.confirmpass)
-    {  
-        alert("Cannot Register, password not same")
-        return;
-    }
-    fetch('/register', {
+    fetch('/login', {
         method: 'post',
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            name:state.name,
-            email:state.name,
+            email:state.email,
             password:state.password
         })
     }).then(resp => resp.json())
-    .then(data => {
+    .then((data) => {
         alert(data)
+        return(
+            <Redirect to = '/profile'/>
+        )
     })
 }
 
-const RegisterPage = () => {
-    const [name,setName]=useState('');
+const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password,setPassword] =useState('');
-    const [confirmpass, setConfimPassword]= useState('')
     return (
         <FormPage>
             <Heading>
-                Registration
+                Login
             </Heading>
-            <InputFields >
-                Name:
-                <br />
-                <input type ='text' placeholder='Input Name' onChange= {(e)=> setName(e.target.value)} />
-            </InputFields>
+          
             
             <InputFields>
                 Email:
@@ -80,24 +71,19 @@ const RegisterPage = () => {
                 <input type ='password' placeholder='Input Password' onChange= {(e)=> setPassword(e.target.value)} />
              </InputFields>
 
-            <InputFields>
-            Confirm Password:
-            <br />
-                <input type ='password' placeholder='Confirm Password' onChange= {(e)=> setConfimPassword(e.target.value)} />
-              </InputFields>
             <button onClick={() => {
-                SubmitForm({name:name, email:email, password:password, confirmpass:confirmpass});
+                SubmitForm({email:email, password:password});
                  }}
             >
-           Register
+           Login
             </button>
             <LinkBox>
-            <Link className="link-register" to="/login">
-					Back to login
+            <Link className="link-register" to="/register">
+                Register
 			</Link>
             </LinkBox>
         </FormPage>
     )
 }
 
-export default RegisterPage;
+export default LoginPage;

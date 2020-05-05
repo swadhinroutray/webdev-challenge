@@ -1,4 +1,3 @@
-const db = require('../config/mongo');
 const bcrypt = require('bcryptjs');
 const user = require('../models/usertemplate')
 let exp ={};
@@ -36,9 +35,10 @@ exp.register = async(req,res)=>{
 }
 exp.login = async(req,res)=>{
     try{
+        // console.log(req.session)
         if( req.session.logged_in == undefined || !req.session.logged_in ){
             result = await user.findOne({"email":(req.body.email).trim()})
-            console.log(result)
+            // console.log(result)
             
             if(!result) return res.send("An Error Occured");
             
@@ -54,14 +54,14 @@ exp.login = async(req,res)=>{
                     req.session.email = req.body.email;
                     req.session.name = result.name;
                     req.session.logged_in = true;
-                    console.log(req.session)
-                    return res.send('Logged in Successfully');
+                    // console.log(req.session)
+                    return res.send('Logged in');
                 }
             }
         }
         else{
             console.log(req.session)
-            return res.send('Already Logged in');
+            return res.redirect('/profile');
         }
     }
     catch(e){

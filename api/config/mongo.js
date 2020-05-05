@@ -1,9 +1,10 @@
 const  mongoose =require("mongoose");
 let exp ={};
 
-exp.connectMongo = async () =>{
-  var mongouri = `mongodb://localhost/webchallenge:27017`;
-    await mongoose.connect(
+  exp.connectMongo = ()=>{
+  var mongouri = `mongodb://localhost:27017/webchallenge`;
+  
+  mongoose.connect(
     mongouri,
     {
       useNewUrlParser: true,
@@ -18,3 +19,5 @@ exp.connectMongo = async () =>{
 }
 
 module.exports = exp;
+
+//var mongouri = `mongodb://db:27017/webchallenge

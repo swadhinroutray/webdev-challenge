@@ -30,7 +30,7 @@ uploadS3 = async (file,filename)=> {
     try{
         if(req.session.logged_in != undefined && req.session.logged_in == true){
         const file = req.files[0];
-       
+        console.log(req.files)
         const id = uuid();
         var ext = file.originalname.split('.').pop();
         var filename = id + '.' + ext;
@@ -47,7 +47,7 @@ uploadS3 = async (file,filename)=> {
             if(!result) return res.send("An Error Occured"); 
             
             const newDesign = new design({
-                title:req.body.title,
+                title:req.params.title,
                 authoremail:(req.session.email).trim(),
                 authorname:(req.session.name).trim(),
                 filename: filename,
@@ -191,7 +191,102 @@ exp.follow = async(req,res) =>{
     }
 }
 
+exp.getProfile = async(req,res) => {
+    try{
+        if(req.session.logged_in != undefined && req.session.logged_in == true){
+            result = await user.findOne(
+                {"email":(req.session.email).trim()}, 
+            )
+            console.log(result)
+            if(!result) return res.send("An error Occured")
+            return res.send(result)
+        }
+        else{
+            return res.redirect('/login')
+        }
+    }
+    catch(e){
+        console.log(e);
+        return res.send('An Error Occured'+ e)
+    }
+     
+}
 
+
+exp.getDesigns = async(req,res) =>{
+    try{
+        if(req.session.logged_in != undefined && req.session.logged_in == true){
+            result = await user.findOne(
+                {"email":(req.session.email).trim()}, 
+            )
+            console.log(result)
+            if(!result) return res.send("An error Occured")
+            var arr = [...result.designs]
+            console.log(arr)
+            resultData = await design.find(
+                {
+                    "authoremail":(req.session.email).trim(),
+                }
+            )
+
+            console.log(resultData);
+            if(!resultData) return res.send("An error Occured")
+           
+         // var obj = [];
+
+        //     for (let index = 0; index < arr.length; index++) {
+        //     const element = arr[index];
+        //     var getParams = {
+        //         Bucket: 'webdevchallenge',
+        //         Key: element,
+        //     }
+            
+        //     //Fetch or read data from aws s3
+        //     await s3.getObject(getParams, function (err, data) {
+            
+        //         if (err) {
+        //             console.log(err);
+        //         } else {
+        //             console.log(data.Body.toString())
+        //             obj.push(data.Body); //this will log data to console
+        //         }
+        //     }
+            
+        //     )
+        // }
+    
+        return res.send(resultData);
+    }
+        else{
+            return res.redirect('/login')
+        }
+    }
+    catch(e){
+        console.log(e);
+        return res.send('An Error Occured'+ e)
+    }
+     
+}   
+
+exp.getFeed = async (req,res)=>{
+    try{
+        if(req.session.logged_in != undefined && req.session.logged_in == true){
+            result = await design.find({}, 
+            )
+            console.log(result)
+            if(!result) return res.send("An error Occured")
+            return res.send(result)
+        }
+        else{
+            return res.redirect('/login')
+        }  
+        
+    }
+    catch(e){
+        console.log(e);
+        return res.send('An Error Occured'+ e)
+    }
+}
 module.exports =exp;
 
 

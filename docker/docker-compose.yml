@@ -34,15 +34,11 @@ services:
    
   db:
     image: mongo:latest
-    command: [--auth]
-    restart: unless-stopped
-    env_file:
-      - ../.env
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
+    image: mongo
     volumes:
-      - ./init:/docker-entrypoint-initdb.d
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
     networks:
       - network
 
